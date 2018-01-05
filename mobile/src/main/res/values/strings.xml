@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Turbo Roller</string>
+    <string name="action_settings">Settings</string>
+    <string name="button_d4">4</string>
+    <string name="button_d6">6</string>
+    <string name="button_d8">8</string>
+    <string name="button_d10">10</string>
+    <string name="button_d12">12</string>
+    <string name="button_d20">20</string>
+    <string name="button_d100">100</string>
+</resources>
