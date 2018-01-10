@@ -3,9 +3,7 @@ package com.sazboom.turboroller.unit;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sazboom.turboroller.Exceptions.DiceRollerException;
-import com.sazboom.turboroller.presenters.RollPresenter;
-import com.sazboom.turboroller.models.DiceRoller;
+import com.sazboom.turboroller.presenters.DndRollPresenter;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -15,7 +13,7 @@ import static junit.framework.Assert.assertTrue;
  */
 
 public class RollPresenterTest {
-    RollPresenter rp = new RollPresenter();
+    DndRollPresenter rp = new DndRollPresenter();
 
     @Before
     public void Before(){

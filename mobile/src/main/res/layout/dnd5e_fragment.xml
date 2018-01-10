@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/dnd5e_contentLayout">
+
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pool_output"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/dicePool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="40dp"
+            android:fontFamily="serif-monospace"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingLeft="5dp"
+            android:text="EMPTY"
+            android:textColor="@color/text"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dicePoolRoll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif-monospace"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingLeft="5dp"
+            android:text="0"
+            android:textColor="@color/text"
+            android:textSize="48sp" />
+
+        <TextView
+            android:id="@+id/dicePoolResults"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif-monospace"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingLeft="5dp"
+            android:text="[]"
+            android:textColor="@color/text"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dice_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/pool_output">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <Button
+                android:id="@+id/buttonD4"
+                style="@style/DiceSelectorButton"
+                android:background="@drawable/d4" />
+
+            <Button
+                android:id="@+id/buttonD6"
+                style="@style/DiceSelectorButton"
+                android:background="@drawable/d6" />
+
+            <Button
+                android:id="@+id/buttonD8"
+                style="@style/DiceSelectorButton"
+                android:background="@drawable/d8" />
+
+            <Button
+                android:id="@+id/buttonD10"
+                style="@style/DiceSelectorButton"
+                android:background="@drawable/d10" />
+
+            <Button
+                android:id="@+id/buttonPositiveBonus"
+                style="@style/DiceSelectorButton"
+                android:background="@drawable/plus1" />
+
+            <Button
+                android:id="@+id/buttonAdv"
+                style="@style/DiceSelectorButton"
+                android:background="@drawable/dnd5eadv" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top">
+
+            <Button
+                android:id="@+id/buttonD12"
+                style="@style/DiceSelectorButton"
+                android:background="@drawable/d12" />
+
+            <Button
+                android:id="@+id/buttonD20"
+                style="@style/DiceSelectorButton"
+                android:background="@drawable/d20" />
+
+            <Button
+                android:id="@+id/buttonD100"
+                style="@style/DiceSelectorButton"
+                android:background="@drawable/d100" />
+
+            <Button
+                android:id="@+id/buttonBlank"
+                style="@style/DiceSelectorButton"
+                android:background="@drawable/ic_blank" />
+
+            <Button
+                android:id="@+id/buttonNegativeBonus"
+                style="@style/DiceSelectorButton"
+                android:background="@drawable/minus1" />
+
+            <Button
+                android:id="@+id/buttonDis"
+                style="@style/DiceSelectorButton"
+                android:background="@drawable/dnd5edis" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <Button
+                android:id="@+id/buttonRoll"
+                style="@style/DiceSelectorLargeButton"
+                android:background="@drawable/roll" />
+            <Button
+                android:id="@+id/buttonClear"
+                style="@style/DiceSelectorLargeButton"
+                android:background="@drawable/clear" />
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dice_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintTop_toBottomOf="@id/dice_selector">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/text"
+            android:paddingRight="10dp"
+            android:shadowColor="@color/text"
+            android:text="Reroll 1s"
+            android:textColor="@color/text"
+            android:textColorHighlight="@color/text"
+            android:textColorHint="@color/text" />
+
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/text"
+            android:text="1s become 2s"
+            android:textColor="@color/text" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/footer"
+        android:layout_width="750dp"
+        android:layout_height="200dp"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="@id/contentLayout"
+        app:srcCompat="@drawable/ic_footer" />
+
+
+</android.support.constraint.ConstraintLayout>
