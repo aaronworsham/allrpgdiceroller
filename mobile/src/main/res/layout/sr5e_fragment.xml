@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/sr5e_contentLayout">
+
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pool_output"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/dicePool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="40dp"
+            android:fontFamily="serif-monospace"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingLeft="5dp"
+            android:text="EMPTY"
+            android:textColor="@color/text"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dicePoolRoll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif-monospace"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingLeft="5dp"
+            android:text="0"
+            android:textColor="@color/text"
+            android:textSize="48sp" />
+
+        <TextView
+            android:id="@+id/dicePoolResults"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif-monospace"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingLeft="5dp"
+            android:text="[]"
+            android:textColor="@color/text"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dice_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/pool_output">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <Button
+                android:id="@+id/buttonAdd1"
+                style="@style/TestDiceSelectorButton"
+                android:text="+1"/>
+
+            <Button
+                android:id="@+id/buttonMinus1"
+                style="@style/TestDiceSelectorButton"
+                android:text="-1"/>
+
+            <Button
+                android:id="@+id/buttonAdd2"
+                style="@style/TestDiceSelectorButton"
+                android:text="+2" />
+
+            <Button
+                android:id="@+id/buttonAdd5"
+                style="@style/TestDiceSelectorButton"
+                android:text="+5" />
+            <Button
+                android:id="@+id/buttonAdd10"
+                style="@style/TestDiceSelectorButton"
+                android:text="+10" />
+            <Button
+                android:id="@+id/buttonAdd20"
+                style="@style/TestDiceSelectorButton"
+                android:text="+20" />
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/buttonRoll"
+                style="@style/TestDiceSelectorButton"
+                android:text="ROLL" />
+            <Button
+                android:id="@+id/buttonClear"
+                style="@style/TestDiceSelectorButton"
+                android:text="CLEAR" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

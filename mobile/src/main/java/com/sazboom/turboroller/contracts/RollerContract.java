@@ -14,23 +14,28 @@ public interface RollerContract {
 
         void setPoolResults(String str);
 
+        void setToast(String str);
 
     }
 
     interface Presenter extends BasePresenter{
+
         void addDiceToPool(int dieFace);
 
-        void addPosDicePoolBonus(int bonus);
 
-        void addNegDicePoolBonus(int bonus);
+        void setResults();
 
-        void rollPool();
-
-        void clearDiceAndPool();
+        void clearPool();
     }
 
     interface SystemFragment{
 
+    }
+
+    interface DndPresenter extends Presenter{
+        void incrementBonus();
+
+        void decrementBonus();
     }
 
 

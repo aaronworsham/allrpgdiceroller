@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/system_dnd5e"
+        android:orderInCategory="100"
+        android:title="DnD5e" />
+    <item
+        android:id="@+id/system_sr5e"
+        android:orderInCategory="200"
+        android:title="Shadowrun 5e" />
+    <item
+        android:id="@+id/system_sw"
+        android:orderInCategory="300"
+        android:title="Savage Worlds" />
+</menu>

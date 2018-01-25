@@ -13,9 +13,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pool_output"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:orientation="vertical"
-        android:paddingBottom="20dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
@@ -62,7 +61,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         app:layout_constraintTop_toBottomOf="@id/pool_output">
 
         <LinearLayout
@@ -163,7 +162,6 @@
         android:id="@+id/dice_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/footer"
         app:layout_constraintTop_toBottomOf="@id/dice_selector">
 
         <CheckBox
@@ -186,13 +184,7 @@
             android:textColor="@color/text" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/footer"
-        android:layout_width="750dp"
-        android:layout_height="200dp"
-        android:scaleType="center"
-        app:layout_constraintBottom_toBottomOf="@id/contentLayout"
-        app:srcCompat="@drawable/ic_footer" />
+
 
 
 </android.support.constraint.ConstraintLayout>

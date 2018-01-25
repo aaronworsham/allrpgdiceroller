@@ -1,32 +1,30 @@
 package com.sazboom.turboroller.models;
 
-import com.sazboom.turboroller.Exceptions.DiceRollerException;
+import android.support.v4.util.ArraySet;
+
+import com.sazboom.turboroller.Exceptions.DieFaceException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Created by aaronworsham on 12/27/17.
  */
 
-public class DiceRoller {
-    public static final Integer[] mDice = {4,6,8,10,12,20,100};
-    public static final String mTestBinding = "TEST BINDING";
-    private int dieFace;
-    private int roll = 0;
-    private int mRollResult = 0;
+public class Die {
 
-    public DiceRoller(int dieFace) throws DiceRollerException{
-        ArrayList<Integer> al = new ArrayList<>(Arrays.asList(mDice));
-        if(!al.contains(dieFace)){
-            throw new DiceRollerException("Die face " + dieFace + " not supported");
-        }
+    private int dieFace;
+    private int mRollResult = 0;
+    private ArraySet<Integer> hitBox = new ArraySet<Integer>();
+
+    public Die(int dieFace) {
         this.dieFace = dieFace;
     }
 
-
-
+    //Used for mocking
+    public Die(){}
 
     private void roll(){
         Random rnd = new Random();
@@ -41,14 +39,22 @@ public class DiceRoller {
         return mRollResult;
     }
 
-    public void clearRoll(){
-        mRollResult = 0;
+    public void setHitBox(int[] array){
+        for(int x : array){
+            hitBox.add(x);
+        }
+    }
+
+    public boolean isAHit(){
+        if( mRollResult == 0){
+            roll();
+        }
+        return hitBox.contains(mRollResult);
     }
 
 
-
-    public Integer getTotal(){
-        return this.roll;
+    public void clearRoll(){
+        mRollResult = 0;
     }
 
     public Integer getFace(){

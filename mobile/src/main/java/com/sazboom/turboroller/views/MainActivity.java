@@ -3,7 +3,7 @@ package com.sazboom.turboroller.views;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,18 +23,23 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sazboom.turboroller.R;
 import com.sazboom.turboroller.contracts.RollerContract;
 import com.sazboom.turboroller.presenters.DndRollPresenter;
+import com.sazboom.turboroller.presenters.SrRollResenter;
 import com.sazboom.turboroller.views.fragments.Dnd5eFragment;
+import com.sazboom.turboroller.views.fragments.Sr5eFragment;
+
+import org.w3c.dom.Text;
 
 
 /**
  * Created by aaronworsham on 12/28/17.
  */
 
-public class Dnd5eMainActivity extends AppCompatActivity implements RollerContract.View{
+public class MainActivity extends AppCompatActivity implements RollerContract.View{
     RollerContract.Presenter mRollPresenter = new DndRollPresenter(this);
     private DrawerLayout mDrawerLayout;
 
@@ -47,9 +52,9 @@ public class Dnd5eMainActivity extends AppCompatActivity implements RollerContra
         setContentView(R.layout.activity_main);
 
         //Set up toolbar
-        Toolbar myToolbar = findViewById(R.id.toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setTitle("D&D 5e");
+
         ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
@@ -62,14 +67,15 @@ public class Dnd5eMainActivity extends AppCompatActivity implements RollerContra
             setupDrawerContent(navigationView);
         }
 
+        //Setup Fragment
+        setupSystemFragment("DND5E");
 
-
-        setupClickListeners();
 
 
     }
 
     @Override
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
@@ -82,20 +88,24 @@ public class Dnd5eMainActivity extends AppCompatActivity implements RollerContra
     }
 
     public void setPoolDescription(String str){
-        TextView poolDescription =  findViewById(R.id.dicePool);
+        TextView poolDescription =  (TextView) findViewById(R.id.dicePool);
         poolDescription.setText(str);
     }
 
     public void setPoolRoll(String str){
-        TextView poolRoll =  findViewById(R.id.dicePoolRoll);
+        TextView poolRoll =  (TextView) findViewById(R.id.dicePoolRoll);
         poolRoll.setText(str);
     }
 
     public void setPoolResults(String str){
-        TextView poolRoll =  findViewById(R.id.dicePoolResults);
-        poolRoll.setText(str);
+        TextView poolResults =  (TextView) findViewById(R.id.dicePoolResults);
+        poolResults.setText(str);
     }
 
+    public void setToast(String str){
+        Toast.makeText(getApplicationContext(), str,
+                Toast.LENGTH_SHORT).show();
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -112,73 +122,57 @@ public class Dnd5eMainActivity extends AppCompatActivity implements RollerContra
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // Close the navigation drawer when an item is selected.
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
+                        switch (menuItem.getItemId()) {
+                            case R.id.system_dnd5e:
+                                Log.i("ROLLER", "DND 5e Selected" );
+                                setupSystemFragment("DND5ENEW");
+                                mDrawerLayout.closeDrawer(GravityCompat.START);
+                                break;
+                            case R.id.system_sr5e:
+                                Log.i("ROLLER", "SR5 5e Selected" );
+                                setupSystemFragment("SR5E");
+                                mDrawerLayout.closeDrawer(GravityCompat.START);
+                                break;
+                            default:
+                                break;
+                        }
                         return true;
                     }
                 });
     }
 
-    private void setupClickListeners(){
-
-
-        Resources res = getResources();
-
-        for(int i = 0; i< DndRollPresenter.DICE.length; i++) {
-            final int die = DndRollPresenter.DICE[i];
-            int id = res.getIdentifier("buttonD" + die , "id", this.getPackageName());
-            Button b = findViewById(id);
-            b.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    mRollPresenter.addDiceToPool(die);
-
-                }
-            });
-        }
-
-//
-        final Button buttonClear = findViewById(R.id.buttonClear);
-        buttonClear.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mRollPresenter.clearDiceAndPool();
-            }
-        });
-
-        final Button buttonRoll = findViewById(R.id.buttonRoll);
-        buttonRoll.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mRollPresenter.rollPool();
-            }
-        });
-
-        final Button buttonPosBonus = findViewById(R.id.buttonPositiveBonus);
-        buttonPosBonus.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mRollPresenter.addPosDicePoolBonus(1);
-            }
-        });
-        final Button buttonNegBonus = findViewById(R.id.buttonNegativeBonus);
-        buttonNegBonus.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mRollPresenter.addNegDicePoolBonus(1);
-            }
-        });
-    }
 
     private void setupSystemFragment(String str){
-
+        FragmentManager fragmentManager = getFragmentManager ();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction ();
 
         switch(str){
-            case "DND5e":
-                Dnd5eFragment systemFragment = new Dnd5eFragment();
-                if (systemFragment == null) {
-                    FragmentManager fragmentManager = getFragmentManager ();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction ();
-                    fragmentTransaction.add(R.id.contentFrame, systemFragment);
-                    fragmentTransaction.commit ();
-                }
-            }
+            case "DND5E":
+                getSupportActionBar().setTitle("D&D 5e");
+                Dnd5eFragment dndfragment = new Dnd5eFragment();
+                dndfragment.setmRollPresenter((DndRollPresenter) mRollPresenter);
+                fragmentTransaction.add(R.id.contentFrame, dndfragment);
+                fragmentTransaction.commit ();
+                break;
+            case "DND5ENEW":
+                mRollPresenter = new DndRollPresenter(this);
+                getSupportActionBar().setTitle("D&D 5e");
+                Dnd5eFragment dndnewfragment = new Dnd5eFragment();
+                dndnewfragment.setmRollPresenter((DndRollPresenter) mRollPresenter);
+                fragmentTransaction.replace(R.id.contentFrame, dndnewfragment);
+                fragmentTransaction.commit ();
+                break;
+            case "SR5E":
+                mRollPresenter = new SrRollResenter(this);
+                getSupportActionBar().setTitle("Shadowrun 5e");
+                Sr5eFragment srFragment = new Sr5eFragment();
+                srFragment.setmRollPresenter((SrRollResenter) mRollPresenter);
+                fragmentTransaction.replace(R.id.contentFrame, srFragment);
+                fragmentTransaction.commit ();
+                break;
+            default :
+                Log.e("ROLLER", "Unknown system");
+
         }
         //Setup Fragment
 

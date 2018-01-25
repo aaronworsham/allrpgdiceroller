@@ -4,10 +4,10 @@ package com.sazboom.turboroller.Exceptions;
  * Created by aaronworsham on 12/27/17.
  */
 
-public class DiceRollerException extends Exception{
+public class DieFaceException extends Exception{
     String expString;
 
-    public DiceRollerException(String str){
+    public DieFaceException(String str){
         expString = str;
     }
 

@@ -1,22 +1,23 @@
 package com.sazboom.turboroller.presenters;
 
 
-import android.widget.Toast;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Queue;
+import android.support.v4.util.ArraySet;
 
 import com.sazboom.turboroller.contracts.RollerContract;
 import com.sazboom.turboroller.models.Die;
 import com.sazboom.turboroller.models.DieResult;
 import com.sazboom.turboroller.models.Dnd5eDicePool;
+import com.sazboom.turboroller.models.Sr5eDicePool;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Queue;
 
 /**
  * Created by aaronworsham on 12/28/17.
  */
 
-public class DndRollPresenter implements RollerContract.DndPresenter {
+public class SrRollResenter implements RollerContract.Presenter {
 
     public static final int[] DICE = {4,6,8,10,12,20,100};
 
@@ -26,7 +27,8 @@ public class DndRollPresenter implements RollerContract.DndPresenter {
 
     private Queue<DieResult> mPoolDieQueue;
 
-    private Dnd5eDicePool mDicePool = new Dnd5eDicePool();
+    private Sr5eDicePool mDicePool = new Sr5eDicePool();
+
 
     private Integer mDicePoolRoll = 0;
 
@@ -41,7 +43,7 @@ public class DndRollPresenter implements RollerContract.DndPresenter {
 
     //Constructors
 
-    public DndRollPresenter(RollerContract.View view) {
+    public SrRollResenter(RollerContract.View view) {
         mView = view;
     }
 
@@ -49,70 +51,31 @@ public class DndRollPresenter implements RollerContract.DndPresenter {
 
     //Rollers
 
-    public void rollAdvantage(){
-        if(mDicePool.isStraight()){
-            mView.setToast("Vantage cannot be rolled with other dice");
-        }
-        else if(mDicePool.isVantage()){
-            mView.setToast("Only one Vantage roll at a time");
-        }
-        else if(mockDie1 == null || mockDie2 == null) {
-            mDicePool.addAdv(new Die(20), new Die(20));
-        }
-        else{
-            mDicePool.addAdv(mockDie1, mockDie2);
-        }
-
-        buildPoolDescription();
-    }
-
-    public void rollDisadvantage(){
-        if(mDicePool.isStraight()){
-            mView.setToast("Vantage cannot be rolled with other dice");
-        }
-        else if(mDicePool.isVantage()){
-            mView.setToast("Only one Vantage roll at a time");
-        }
-        else if(mockDie1 == null || mockDie2 == null) {
-            mDicePool.addDis(new Die(20), new Die(20));
-        }
-        else{
-            mDicePool.addDis(mockDie1, mockDie2);
-        }
-
-        buildPoolDescription();
-
-    }
 
     //Adders
 
-    public void addDiceToPool(int dieFace){
-        if(!mDicePool.isVantage()) {
-            mDicePool.addStrightDie(new Die(dieFace));
+    public void addDiceToPool(int num){
+        for(int x = 0; x < num; x++){
+           mDicePool.addDie(new Die(6));
             buildPoolDescription();
         }
-        else {
-            mView.setToast("Only +1 and -1 can be used in a Vantage roll");
+
+    }
+
+    public void removeDiceFromPool(int num){
+        for(int x = 0; x < num; x++){
+            mDicePool.removeDie();
+            buildPoolDescription();
         }
     }
 
     public void addMockDiceToPool(Die d){
-        mDicePool.addStrightDie(d);
+        mDicePool.addDie(d);
         buildPoolDescription();
     }
 
 
-    public void incrementBonus(){
-        mDicePoolBonus += 1;
-        buildPoolDescription();
 
-    }
-
-
-    public void decrementBonus(){
-        mDicePoolBonus -= 1;
-        buildPoolDescription();
-    }
 
     //Getters
 
@@ -149,7 +112,7 @@ public class DndRollPresenter implements RollerContract.DndPresenter {
     //Cleaners
 
     public void clearPool(){
-        mDicePool = new Dnd5eDicePool();
+        mDicePool = new Sr5eDicePool();
         mPoolDesc = "";
         mPoolRollDesc = "0";
         mPoolResultsDesc = "[]";
@@ -224,8 +187,10 @@ public class DndRollPresenter implements RollerContract.DndPresenter {
             mPoolRollDesc = Integer.toString(x);
         }
         else{
-            mPoolRollDesc = "0";
+            mPoolRollDesc = "0 HITS";
         }
+
+        mPoolRollDesc = mPoolRollDesc + " HITS";
 
         setPoolRollDescription();
     }
